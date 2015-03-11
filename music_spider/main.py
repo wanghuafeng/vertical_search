@@ -57,7 +57,7 @@ def packet2horder(packet_base_filename, catagory):
     else:
         print '*.packet spc from s3 to s1 sucess...'
     horde_command = 'bash /home/gaius/horde_srv/auto_import.sh %s' % catagory
-    fab_command = 'fab -H s1 --keepalive=10 -- "%s"' % horde_command
+    fab_command = '/usr/local/bin/fab -H s1 --keepalive=10 -- "%s"' % horde_command
     subprocess.call(fab_command, shell=True)
 
 if __name__ == "__main__":

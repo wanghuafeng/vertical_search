@@ -27,12 +27,12 @@ def data_clean(origin_filename=None):
 def sentence2Packet():
     remote_path = '/home/ferrero/cloudinn/filtered_unmatch_sentence'
     filter_path = '/home/ferrero/cloudinn/filtered_unmatch_sentence/prebuild_packet'
-    mv_command = 'mv %s %s' % (unfiltered_sentence_filename, filter_path)
+    mv_command = 'cp %s %s' % (unfiltered_sentence_filename, filter_path)
     IsFailed = subprocess.call(mv_command, shell=True)
     if IsFailed:
-        print 'txt mv to %s failed...' % filter_path
+        print 'txt cp to %s failed...' % filter_path
     else:
-        print 'txt mv to %s sucess...' % filter_path
+        print 'txt cp to %s sucess...' % filter_path
 
     py_command = 'python {remote_path}/sentence2Packet.py -i {remote_path}/prebuild_packet/{sentence_filename}'.format(remote_path=remote_path, sentence_filename=os.path.basename(unfiltered_sentence_filename))#sentence文件的绝对路径
     IsFailed = subprocess.call(py_command, shell=True)
@@ -49,8 +49,9 @@ def packet2horder(packet_base_filename, catagory):
     else:
         print '*.packet spc from s3 to s1 sucess...'
     horde_command = 'bash /home/gaius/horde_srv/auto_import.sh %s' % catagory
-    fab_command = 'fab -H s1 --keepalive=10 -- "%s"' % horde_command
+    fab_command = '/usr/local/bin/fab -H s1 --keepalive=10 -- "%s"' % horde_command
     subprocess.call(fab_command, shell=True)
+
 if __name__ == "__main__":
     start_time = time.time()
     time_stamp = time.strftime("%Y_%m_%d_%H%M%S")

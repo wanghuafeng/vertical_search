@@ -47,7 +47,7 @@ def gen_whole_page_url(book_page_url_filename):
 # print time.time() - start_time
 def analysis_page_url_to_get_pagesize():
         page_url = 'http://list.jd.com/1713-3265-3429.html'
-        html = requests.get(page_url).text
+        html = requests.get(page_url, timeout=10).text
         soup = BeautifulSoup(html)
         max_page_str = soup.find('div', class_='pagin pagin-m')
         print max_page_str

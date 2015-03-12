@@ -9,7 +9,7 @@ import simplejson
 from bs4 import BeautifulSoup
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-
+total_singer_list = []
 def get_hot_singer_url():
     '''获取所有歌手的url'''
     baidu_music_url = 'http://music.baidu.com/artist'
@@ -24,6 +24,7 @@ def get_hot_singer_url():
         if not li_str.find('a'):
             continue#如果没有a标签
         total_singer_set.add(li_str.a['href'])
+        total_singer_list.append(li_str.a.text.strip())
     print len(total_singer_set)#歌手数量2200
     codecs.open('total_singer_url.txt', mode='wb', encoding='utf-8').writelines(["http://music.baidu.com/" + item+'\n' for item in total_singer_set])
 # get_hot_singer_url()
@@ -178,6 +179,7 @@ def run():
     get_hot_singer_url()#先抓取所有歌手的url，写入到total_singer_url.txt中
     total_singer_filename = os.path.join(PATH, 'total_singer_url.txt')
     songSpider = BaiduSongSpider(total_singer_filename)
+    songSpider.write_song_title([item+'\n' for item in total_singer_list])
     count = 1
     for singer_url in songSpider.all_singer_url_list:
         singer_id = os.path.basename(singer_url)#歌手ID
@@ -192,7 +194,7 @@ def run():
                 songSpider.second_and_then_crawl(start, singer_id)#翻页请求
 
 if __name__ == "__main__":
-    # run()
+    run()
     def first_crawl_test():
         url = u'http://music.baidu.com//artist/87954342'
         print BaiduSongSpider().first_crawl(url)
@@ -219,3 +221,4 @@ if __name__ == "__main__":
                     songSpider.second_and_then_crawl(start, singer_id)#翻页请求
 
     # run()
+    # get_hot_singer_url()

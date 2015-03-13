@@ -14,7 +14,8 @@
 		3、一次清洗后的数据，交由filter_sentence做二次清洗后生成*.prebuild, 
 		*.packet（将download_count作为freq参数，跳过horde词频抓取直接入库）
 		4、*.prebuild文件重命名为*.build上传到UDB1的指定路径下
-		（'/data/cloud/daily_data'#云词库路径、udb1_vertical_path = '/data/vertical/builds/current'#垂直搜索库路径）
+			（'/data/cloud/daily_data'#云词库路径、
+			  udb1_vertical_path = '/data/vertical/builds/current'#垂直搜索库路径）
 	2）music （百度全站音乐）
 		爬虫路径：mdev:/home/mdev/wanghuafeng/music_spider
 		1、抓取百度音乐全站音乐数据

@@ -74,8 +74,6 @@ def get_bookname_by_page_url(url):
         page_book_list.extend([item.encode('ISO-8859-1').decode('gbk') for item in book_name_list])
     except:
         pass
-    for book in page_book_list:
-        print book
     return page_book_list
 # url = 'http://list.jd.com/1713-3291-6621.html'
 # get_bookname_by_page_url(url)
